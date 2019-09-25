@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+
+    <title>{{page}}</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+
+<body>
+    {% block navigation %} {% include 'navbar.twig' %} {% endblock navigation %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mt-5 text-center">
+                <h2>Allocate Beater</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 mt-5 offset-md-2">
+                <div class="table-responsive-sm">
+                    <table class="table table-striped table-hover">
+                        <thead class="thead-dark">
+                            <th>Day</th>
+                            <th>Date</th>
+                            <th>Available?</th>
+                            <th></th>
+                            <th></th>
+                        </thead>
+                        <tbody>
+                            {% for d in days %}
+                            <tr>
+                                <td>{{d.name}}</td>
+                                <td>{{d.date}}</td>
+                                <td>
+                                    {% for bd in beater_days %} {% if d.id == bd.day_id %}
+                                    <i class="fa fa-check"></i> {% endif %} {% endfor %}
+                                </td>
+                                <td>
+                                    <form action="/beaters/allocate/{{bid}}" method="POST">
+                                        <input type="hidden" value="{{d.id}}" name="allocatebeater">
+                                        <button type="submit" class="btn btn-dark">Allocate</button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <form action="/beaters/allocate/{{bid}}" method="POST">
+                                        <input type="hidden" value="{{d.id}}" name="removebeater">
+                                        <button type="submit" class="btn btn-dark">Remove</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+</body>
+
+</html>
